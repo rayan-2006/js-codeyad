@@ -1,3 +1,4 @@
+/* Reset and base styles for the entire page */
 body {
   background-color: #925A41;
   display: flex;
@@ -8,10 +9,17 @@ body {
   gap: 3rem;
   color: #E2DBD5;
   font-optical-sizing: auto;
-  font-weight: weight;
+  font-weight: 400;
+  /* Fixed: Set to a valid weight value */
   font-style: normal;
 }
 
+/* Main title styling */
+.title {
+  font-family: "Playwrite NO", cursive;
+}
+
+/* Order form container styling */
 .order-box {
   border: 1px solid #D4BA95;
   display: flex;
@@ -20,26 +28,31 @@ body {
   padding: 1rem;
   border-radius: 1rem;
   background-color: #B4754D;
-
 }
 
-.title {
-  font-family: "Playwrite NO", cursive;
-}
-
-
+/* Input sections (name, drink, add-ons) */
 .input-class {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
+/* Label styling for input fields */
+label {
+  font-size: 12px;
+  font-weight: 100;
+  /* Fixed: Corrected from '100s' */
+  line-height: 10px;
+}
+
+/* Customer name input styling */
 .Customer-name {
   padding: 0.5rem;
   border-radius: 0.5rem;
   border: none;
 }
 
+/* Drink and add-ons select/input styling */
 .Customer-drink,
 .Customer-Add-ons {
   padding: 0.5rem;
@@ -47,6 +60,7 @@ body {
   border: none;
 }
 
+/* BUY button styling */
 .btn {
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
@@ -57,6 +71,7 @@ body {
   cursor: pointer;
 }
 
+/* Invoice section container */
 .Invoice {
   width: 100%;
   display: flex;
@@ -64,12 +79,7 @@ body {
   align-items: center;
 }
 
-label {
-  font-size: 12px;
-  font-weight: 100s;
-  line-height: 10px;
-}
-
+/* Table styling for invoice */
 .Invoice-table {
   border-collapse: collapse;
   width: 70%;
@@ -78,6 +88,7 @@ label {
   border-collapse: separate;
 }
 
+/* Table cell styling */
 td {
   padding: 0.5rem;
   border: 1px solid #D4BA95;
@@ -86,10 +97,13 @@ td {
   border-radius: 1rem;
 }
 
+/* Clean button in table footer */
 #clean {
   cursor: pointer;
 }
 
+/* Specific styling for table body cells */
 tbody td {
   width: 33.33px;
+  /* Note: Consider using % or em for responsiveness */
 }
