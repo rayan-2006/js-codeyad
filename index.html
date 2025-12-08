@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playwrite+NO:wght@100..400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="asetss/css/indext.css">
+</head>
+
+<body>
+  <h1 class="title">
+    Welcome to your cafee.
+  </h1>
+  <form class="order-box">
+    <h1>
+      Enter your order
+    </h1>
+    <div class="input-class">
+      <label for="Customer-name">your name</label>
+      <input type="text" name="" id="Customer-name" class="Customer-name" placeholder="your name...">
+    </div>
+
+    <div class="input-class">
+      <label for="Customer-drink">Choose your drink</label>
+      <select name="" id="Customer-drink" class="Customer-drink" title="Drink selection">
+        <option value="" disabled selected>Choose...</option>
+        <option value="Coffee">Coffee</option>
+        <option value="Tea">Tea</option>
+        <option value="Nescafe">Nescafe</option>
+      </select>
+    </div>
+
+    <div class="input-class">
+      <label for="Customer-Add-ons">Choose your add-ons</label>
+      <select name="" id="Customer-Add-ons" class="Customer-Add-ons" title="Choosing a beverage additive">
+        <option value="" disabled selected>Choose</option>
+        <option value="milk">milk</option>
+        <option value="sugar">sugar</option>
+        <option value="lemon">lemon</option>
+      </select>
+    </div>
+
+    <input type="button" value="BUY" class="btn" id="btn">
+  </form>
+
+  <div class="Invoice">
+    <table border="1px" class="Invoice-table">
+      <thead>
+        <tr>
+          <td>Customer name</td>
+          <td>Customer's drink</td>
+          <td>Customer Add-ons</td>
+        </tr>
+      </thead>
+      <tbody id="ordersTr">
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3" id="clean">clean</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <!-- =================== -->
+  <script src="/asetss/js/index.js" type="text/JavaScript"></script>
+  <noscript>
+    your browser doesn't support or has disabled JavaScript
+  </noscript>
+</body>

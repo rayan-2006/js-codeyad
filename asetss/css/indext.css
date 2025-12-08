@@ -1,0 +1,95 @@
+body {
+  background-color: #925A41;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  gap: 3rem;
+  color: #E2DBD5;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
+}
+
+.order-box {
+  border: 1px solid #D4BA95;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  background-color: #B4754D;
+
+}
+
+.title {
+  font-family: "Playwrite NO", cursive;
+}
+
+
+.input-class {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.Customer-name {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: none;
+}
+
+.Customer-drink,
+.Customer-Add-ons {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: none;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  background-color: #016273;
+  color: #E2DBD5;
+  font-size: large;
+  cursor: pointer;
+}
+
+.Invoice {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+label {
+  font-size: 12px;
+  font-weight: 100s;
+  line-height: 10px;
+}
+
+.Invoice-table {
+  border-collapse: collapse;
+  width: 70%;
+  border: none;
+  border-spacing: 0.5rem;
+  border-collapse: separate;
+}
+
+td {
+  padding: 0.5rem;
+  border: 1px solid #D4BA95;
+  text-align: center;
+  background-color: #016273;
+  border-radius: 1rem;
+}
+
+#clean {
+  cursor: pointer;
+}
+
+tbody td {
+  width: 33.33px;
+}
