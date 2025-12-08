@@ -4,7 +4,7 @@ const btn = document.getElementById("btn");
 const buy = () => {
   const InputCustomerName = document.getElementById("Customer-name").value.trim();
   const inputCustomerDrink = document.getElementById("Customer-drink").value;
-  const inputCustomerAddOns = document.getElementById("Customer-Add-ons").value;
+  const inputCustomerAddOns = document.getElementById("Customer-Add-ons").value.trim();
   const ordersTr = document.getElementById("ordersTr");
 
   let CustomerName = InputCustomerName || undefined;
