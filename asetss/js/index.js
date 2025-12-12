@@ -37,7 +37,9 @@ const buy = () => {
 
   if (play) {
     // Generate random magic number for game (1-10)
-    const magicNumber = Math.floor(Math.random() * 10) + 1;
+    const magicNumber = Math.floor(Math.random() * 10);
+    console.log(magicNumber);
+
     let guessedCorrect = false;
 
     // Game loop: 3 attempts to guess the number
@@ -48,6 +50,11 @@ const buy = () => {
       if (Guess < 0 || Guess > 10 || isNaN(Guess)) {
         alert("please enter a number between 1 and 10");
         continue;
+      }
+
+      if (Guess == 0) {
+        alert(`You gave up.`);
+        return;
       }
 
       // Check if guess is correct
