@@ -51,7 +51,7 @@ const buy = () => {
         alert("please enter a number between 1 and 10");
         continue;
       }
-
+      // Check if user gave up
       if (Guess == 0) {
         alert(`You gave up.`);
         return;
