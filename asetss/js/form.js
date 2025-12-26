@@ -73,63 +73,70 @@ showAllUsers.addEventListener("click", () => {
 
 findUserByEmail.addEventListener("click", () => {
   modalContent.innerHTML = "";
-  modalContent.innerHTML = `<h3>ایمیل خود را جستجو کنید...</h3>`;
+
+  if (people.length === 0) {
+    modalContent.innerHTML = `<h3>هنوز کاربری وارد نشده است</h3>`
+  } else {
+    modalContent.innerHTML = `<h3>ایمیل خود را جستجو کنید...</h3>`;
+
+    const SearchForm = document.createElement("form");
+
+    const SearchFormIput = document.createElement("input");
+    SearchFormIput.type = "email";
+    SearchFormIput.placeholder = "ایمیل رو اینجا وارد کن...";
+    SearchFormIput.required = true;
+
+    const SearchFormBTN = document.createElement("button");
+    SearchFormBTN.innerText = `جستجو کنید`;
+    SearchFormBTN.type = "submit";
+
+    SearchForm.classList.add("SearchForm");
+    SearchFormBTN.classList.add("SearchFormBTN");
+    SearchFormIput.classList.add("SearchFormIput");
 
 
-  const SearchForm = document.createElement("form");
+    SearchForm.appendChild(SearchFormIput);
+    SearchForm.appendChild(SearchFormBTN);
 
-  const SearchFormIput = document.createElement("input");
-  SearchFormIput.type = "email";
-  SearchFormIput.placeholder = "ایمیل رو اینجا وارد کن...";
-  SearchFormIput.required = true;
+    modalContent.appendChild(SearchForm);
 
-  const SearchFormBTN = document.createElement("button");
-  SearchFormBTN.innerText = `جستجو کنید`;
-  SearchFormBTN.type = "submit";
+    SearchForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const emailToFind = SearchFormIput.value.trim();
 
-  SearchForm.classList.add("SearchForm");
-  SearchFormBTN.classList.add("SearchFormBTN");
-  SearchFormIput.classList.add("SearchFormIput");
-
-
-  SearchForm.appendChild(SearchFormIput);
-  SearchForm.appendChild(SearchFormBTN);
-
-  modalContent.appendChild(SearchForm);
-
-  SearchForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-    const emailToFind = SearchFormIput.value.trim();
-
-    if (!emailToFind) {
-      modalContent.innerHTML = `<h3>لطفاً ایمیل وارد کنید!</h3>`;
-      modal.style.display = "block";
-      return;
-    }
-
-    const person = people.find(p => p.email === emailToFind);
-
-    modalContent.innerHTML = "";
-
-    if (person) {
-      modalContent.innerHTML = `<h3>کاربر یافت شد</h3>`;
-
+      if (!emailToFind) {
+        modalContent.innerHTML = `<h3>لطفاً ایمیل وارد کنید!</h3>`;
+        modal.style.display = "block";
+        return;
+      }
       const list = document.createElement("ol");
+      people.forEach((Rayan, index) => {
+        const person = people.find(Rayan => Rayan.email === emailToFind);
+        modalContent.innerHTML = "";
 
-      const li = document.createElement("li");
-      li.innerHTML = `۱. ${person.name} ${person.lastname}
-                      ایمیل: ${person.email}
-                      شغل: ${person.job || "---"}
-                      شماره تماس: ${person.phone || "---"}
-                      جنسیت: ${person.gender || "---"}`;
+        const li = document.createElement("li");
+        if (person) {
+          modalContent.innerHTML = `<h3>کاربر یافت شد</h3>`;
 
-      list.appendChild(li);
-      modalContent.appendChild(list);
-    } else {
+          li.innerText = `${index + 1} . ${person.name} ${person.lastname}
+          ایمیل: ${person.email}
+          شغل: ${person.job || "---"}
+          شماره تماس: ${person.phone || "---"}
+          جنسیت: ${person.gender || "---"}`;
 
-      modalContent.innerHTML = `<h3>کاربری با این ایمیل یافت نشد</h3>`;
-    }
-  })
+          list.appendChild(li);
+          modalContent.appendChild(list);
+        } else {
+
+          modalContent.innerHTML = `<h3>کاربری با این ایمیل یافت نشد</h3>`;
+        }
+      })
+
+
+    })
+  }
+
+
 
   modal.style.display = "block";
 });
