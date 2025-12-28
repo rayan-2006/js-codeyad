@@ -16,9 +16,9 @@ body {
   flex-direction: column;
   gap: 0.5rem;
   align-items: center;
-  padding: 4rem;
+  padding: 1.5rem;
   max-width: 400px;
-  border-radius: 2rem;
+  border-radius: 0.8rem;
   box-shadow: 0 0 2000px 50px #ffffff58;
 }
 

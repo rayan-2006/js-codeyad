@@ -19,6 +19,7 @@ const phone = document.getElementById("phone");
 const gender = document.getElementById("gender");
 const addUser = document.getElementById("addUserBtn");
 const showAllUsers = document.getElementById("showAllUsersBtn");
+const findUserByNameBtn = document.getElementById("findUserByNameBtn");
 const findUserByEmail = document.getElementById("findUserByEmailBtn");
 const allUsersEmployed = document.getElementById("allUsersEmployedBtn");
 const hasMaleUser = document.getElementById("hasMaleUserBtn");
@@ -114,21 +115,15 @@ findUserByEmail.addEventListener("click", () => {
     modalContent.appendChild(SearchForm);
 
     // Handle form submission for search
-    SearchForm.addEventListener("submit", function (e) {
+    SearchForm.addEventListener("submit", e => {
       e.preventDefault();
       const emailToFind = SearchFormIput.value.trim();
-
-      if (!emailToFind) {
-        modalContent.innerHTML = `<h3>لطفاً ایمیل وارد کنید!</h3>`;
-        modal.style.display = "block";
-        return;
-      }
 
       const list = document.createElement("ol");
 
       // Search for matching user(s)
       people.forEach((Rayan, index) => {
-        const person = people.find(Rayan => Rayan.email === emailToFind);
+        const person = people.find(Rayan => Rayan.email === emailToFind.trim());
         modalContent.innerHTML = "";
 
         const li = document.createElement("li");
@@ -151,6 +146,74 @@ findUserByEmail.addEventListener("click", () => {
   }
 
   modal.style.display = "block";
+});
+
+//Search user by name with dynamic form in modal
+findUserByNameBtn.addEventListener("click", () => {
+  modalContent.innerHTML = "";
+
+  if (people.length === 0) {
+    modalContent.innerHTML = `<h3>هنوز کاربری وارد نشده است</h3>`;
+  } else {
+    modalContent.innerHTML = `<h3>نام کاربر مورد نظر را وارد کنید</h3>`;
+
+    // Create search form dynamically
+    const SearchForm = document.createElement("form");
+
+    const SearchFormIput = document.createElement("input");
+    SearchFormIput.type = "text";
+    SearchFormIput.placeholder = "نام کاربر خود را وارد کنید ...";
+    SearchFormIput.required = true;
+
+    const SearchFormBTN = document.createElement("button");
+    SearchFormBTN.innerText = "جستجو کنید... ";
+    SearchFormBTN.type = "submit";
+
+    SearchForm.classList.add("SearchForm");
+    SearchFormBTN.classList.add("SearchFormBTN");
+    SearchFormIput.classList.add("SearchFormIput");
+
+    SearchForm.appendChild(SearchFormIput);
+    SearchForm.appendChild(SearchFormBTN);
+
+    modalContent.appendChild(SearchForm);
+
+    // Handle form submission for search
+
+    SearchForm.addEventListener("submit", e => {
+      e.preventDefault();
+      const UserNameToFind = SearchFormIput.value.trim();
+
+      const list = document.createElement("ol");
+
+      // Search for matching user(s)
+      const person = people.filter(rayan => rayan.name === UserNameToFind.trim());
+
+      if (person.length > 0) {
+        modalContent.innerHTML = "";
+        modalContent.innerHTML = `<h3>کاربر یافت شد</h3>`;
+
+        person.forEach((rayan, index) => {
+
+          const { name, lastname, email, job, phone, gender } = rayan;
+
+          const li = document.createElement("li");
+
+          li.innerText = `${index + 1} . ${name} ${lastname}
+ایمیل : ${email}
+شغل : ${job || "---"}
+شماره تماس : ${phone || "---"}
+جنسیت : ${gender || "---"}`;
+          list.appendChild(li);
+          modalContent.appendChild(list);
+        })
+      } else if (people.length === 0) {
+        modalContent.innerHTML = `<h3>کاربری با این نام پیدا نشد</h3>`;
+      }
+    })
+
+  }
+  modal.style.display = "block"
 });
 
 // Close modal when clicking outside content area
