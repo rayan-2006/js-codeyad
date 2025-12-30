@@ -5,9 +5,11 @@
  * 
  * This script handles a simple user registration form with modal-based display and search functionality.
  * Features:
- * - Add new users with basic validation
+ * - Add new users with basic validation (required fields + email format + uniqueness)
  * - Show all registered users in a modal
- * - Search for a user by email using a dynamic form inside modal
+ * - Search users by email or name using dynamic forms inside modal
+ * - Check if all users are employed
+ * - Check if at least one male user exists
  */
 
 const form = document.getElementById("userForm");
@@ -47,10 +49,13 @@ form.addEventListener("submit", function (e) {
     return;
   }
 
+  // Validate email format using simple regex
   if (!/\S+@\S+\.\S+/.test(newperson.email)) {
     alert("لطفا یک ایمیل معتبر وارد کنید");
     return;
   }
+
+  // Check if email already exists
   const emailExists = people.some(rayan => rayan.email === newperson.email);
   if (emailExists) {
     alert("این ایمیل قبلاً ثبت شده است");
@@ -128,6 +133,7 @@ findUserByEmail.addEventListener("click", () => {
     SearchForm.addEventListener("submit", e => {
       e.preventDefault();
       const emailToFind = SearchFormIput.value.trim();
+
       // Search for matching user(s)
       const person = people.find(rayan => rayan.email === emailToFind.trim());
 
@@ -137,10 +143,10 @@ findUserByEmail.addEventListener("click", () => {
         const list = document.createElement("ol");
         const li = document.createElement("li");
         li.innerText = `1 . ${person.name} ${person.lastname}
-                        ایمیل: ${person.email}
-                        شغل: ${person.job || "---"}
-                        شماره تماس: ${person.phone || "---"}
-                        جنسیت: ${person.gender || "---"}`;
+ایمیل: ${person.email}
+شغل: ${person.job || "---"}
+شماره تماس: ${person.phone || "---"}
+جنسیت: ${person.gender || "---"}`;
         list.appendChild(li);
         modalContent.appendChild(list);
       } else {
@@ -152,7 +158,7 @@ findUserByEmail.addEventListener("click", () => {
   modal.style.display = "block";
 });
 
-//Search user by name with dynamic form in modal
+// Search user by name with dynamic form in modal
 findUserByName.addEventListener("click", () => {
   modalContent.innerHTML = "";
 
@@ -174,8 +180,8 @@ findUserByName.addEventListener("click", () => {
     SearchFormBTN.type = "submit";
 
     SearchForm.classList.add("SearchForm");
-    SearchFormBTN.classList.add("SearchFormBTN");
-    SearchFormIput.classList.add("SearchFormIput");
+    SearchFormIput.classList.add("SearchFormInput");
+    SearchFormBTN.classList.add("SearchFormBtn");
 
     SearchForm.appendChild(SearchFormIput);
     SearchForm.appendChild(SearchFormBTN);
@@ -183,7 +189,6 @@ findUserByName.addEventListener("click", () => {
     modalContent.appendChild(SearchForm);
 
     // Handle form submission for search
-
     SearchForm.addEventListener("submit", e => {
       e.preventDefault();
       const UserNameToFind = SearchFormIput.value.trim();
@@ -204,10 +209,10 @@ findUserByName.addEventListener("click", () => {
           const li = document.createElement("li");
 
           li.innerText = `${index + 1} . ${name} ${lastname}
-                          ایمیل : ${email}
-                          شغل : ${job || "---"}
-                          شماره تماس : ${phone || "---"}
-                          جنسیت : ${gender || "---"}
+ایمیل : ${email}
+شغل : ${job || "---"}
+شماره تماس : ${phone || "---"}
+جنسیت : ${gender || "---"}
           `;
           list.appendChild(li);
           modalContent.appendChild(list);
@@ -222,9 +227,7 @@ findUserByName.addEventListener("click", () => {
 });
 
 
-//
-
-
+// Check if all users are employed
 allUsersEmployed.addEventListener("click", () => {
   modalContent.innerHTML = "";
 
@@ -259,8 +262,7 @@ allUsersEmployed.addEventListener("click", () => {
   modal.style.display = "block";
 });
 
-//
-
+// Check if at least one male user exists
 hasMaleUser.addEventListener("click", () => {
   modalContent.innerHTML = "";
 
