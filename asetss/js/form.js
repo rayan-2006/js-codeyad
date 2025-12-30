@@ -19,7 +19,7 @@ const phone = document.getElementById("phone");
 const gender = document.getElementById("gender");
 const addUser = document.getElementById("addUserBtn");
 const showAllUsers = document.getElementById("showAllUsersBtn");
-const findUserByNameBtn = document.getElementById("findUserByNameBtn");
+const findUserByName = document.getElementById("findUserByNameBtn");
 const findUserByEmail = document.getElementById("findUserByEmailBtn");
 const allUsersEmployed = document.getElementById("allUsersEmployedBtn");
 const hasMaleUser = document.getElementById("hasMaleUserBtn");
@@ -44,6 +44,16 @@ form.addEventListener("submit", function (e) {
   // Basic validation for required fields
   if (!newperson.name || !newperson.lastname || !newperson.email) {
     alert("لطفا تمام فیلد های الزامی را پر کنید");
+    return;
+  }
+
+  if (!/\S+@\S+\.\S+/.test(newperson.email)) {
+    alert("لطفا یک ایمیل معتبر وارد کنید");
+    return;
+  }
+  const emailExists = people.some(rayan => rayan.email === newperson.email);
+  if (emailExists) {
+    alert("این ایمیل قبلاً ثبت شده است");
     return;
   }
 
@@ -118,30 +128,24 @@ findUserByEmail.addEventListener("click", () => {
     SearchForm.addEventListener("submit", e => {
       e.preventDefault();
       const emailToFind = SearchFormIput.value.trim();
-
-      const list = document.createElement("ol");
-
       // Search for matching user(s)
-      people.forEach((Rayan, index) => {
-        const person = people.find(Rayan => Rayan.email === emailToFind.trim());
+      const person = people.find(rayan => rayan.email === emailToFind.trim());
+
+      if (person) {
         modalContent.innerHTML = "";
-
+        modalContent.innerHTML = `<h3>کاربر یافت شد</h3>`;
+        const list = document.createElement("ol");
         const li = document.createElement("li");
-        if (person) {
-          modalContent.innerHTML = `<h3>کاربر یافت شد</h3>`;
-
-          li.innerText = `${index + 1} . ${person.name} ${person.lastname}
-ایمیل: ${person.email}
-شغل: ${person.job || "---"}
-شماره تماس: ${person.phone || "---"}
-جنسیت: ${person.gender || "---"}`;
-
-          list.appendChild(li);
-          modalContent.appendChild(list);
-        } else {
-          modalContent.innerHTML = `<h3>کاربری با این ایمیل یافت نشد</h3>`;
-        }
-      });
+        li.innerText = `1 . ${person.name} ${person.lastname}
+                        ایمیل: ${person.email}
+                        شغل: ${person.job || "---"}
+                        شماره تماس: ${person.phone || "---"}
+                        جنسیت: ${person.gender || "---"}`;
+        list.appendChild(li);
+        modalContent.appendChild(list);
+      } else {
+        modalContent.innerHTML = `<h3>کاربری با این ایمیل پیدا نشد</h3>`;
+      }
     });
   }
 
@@ -149,7 +153,7 @@ findUserByEmail.addEventListener("click", () => {
 });
 
 //Search user by name with dynamic form in modal
-findUserByNameBtn.addEventListener("click", () => {
+findUserByName.addEventListener("click", () => {
   modalContent.innerHTML = "";
 
   if (people.length === 0) {
@@ -193,17 +197,18 @@ findUserByNameBtn.addEventListener("click", () => {
         modalContent.innerHTML = "";
         modalContent.innerHTML = `<h3>کاربر یافت شد</h3>`;
 
-        person.forEach((rayan, index) => {
+        person.forEach((Rayan, index) => {
 
-          const { name, lastname, email, job, phone, gender } = rayan;
+          const { name, lastname, email, job, phone, gender } = Rayan;
 
           const li = document.createElement("li");
 
           li.innerText = `${index + 1} . ${name} ${lastname}
-ایمیل : ${email}
-شغل : ${job || "---"}
-شماره تماس : ${phone || "---"}
-جنسیت : ${gender || "---"}`;
+                          ایمیل : ${email}
+                          شغل : ${job || "---"}
+                          شماره تماس : ${phone || "---"}
+                          جنسیت : ${gender || "---"}
+          `;
           list.appendChild(li);
           modalContent.appendChild(list);
         })
@@ -214,6 +219,84 @@ findUserByNameBtn.addEventListener("click", () => {
 
   }
   modal.style.display = "block"
+});
+
+
+//
+
+
+allUsersEmployed.addEventListener("click", () => {
+  modalContent.innerHTML = "";
+
+  if (people.length === 0) {
+    modalContent.innerHTML = `<h3>هنوز کاربری وارد نشد است</h3>`
+  } else {
+    const AllHaveJob = people.every(rayan => rayan.job.trim() !== "");
+    console.log(AllHaveJob);
+
+    const list = document.createElement("ol");
+
+    const OnlyHaveJob = people.filter(rayan => rayan.job.trim());
+
+    OnlyHaveJob.forEach((Rayan, index) => {
+      const { name, lastname, email, job, phone, gender } = Rayan;
+
+      modalContent.innerHTML = `<h3>${index + 1} کاربر شاغل هستند</h3>`
+
+      const li = document.createElement("li");
+
+      li.innerText = `${index + 1} . ${name} ${lastname}
+                      ایمیل: ${email}
+                      شغل: ${job || "---"}
+                      شماره تماس: ${phone || "---"}
+                      جنسیت: ${gender || "---"}`;
+      list.appendChild(li);
+      modalContent.appendChild(list);
+
+
+    });
+  }
+  modal.style.display = "block";
+});
+
+//
+
+hasMaleUser.addEventListener("click", () => {
+  modalContent.innerHTML = "";
+
+  if (people.length === 0) {
+    modalContent.innerHTML = `<h3>هنوز کاربری وارد نشده است</h3>`;
+  } else {
+    const hasMale = people.some(rayan => rayan.gender === "male");
+
+    if (hasMale) {
+      modalContent.innerHTML = "";
+
+      const list = document.createElement("ol");
+
+      const gender = people.filter(rayan => rayan.gender.trim() === "male");
+
+      gender.forEach((Rayan, index) => {
+        const { name, lastname, email, job, phone, gender } = Rayan;
+        modalContent.innerHTML = "";
+
+        modalContent.innerHTML = `<h3>حداقل ${index + 1} مرد وجو دارد</h3>`
+
+        const li = document.createElement("li");
+
+        li.innerText = `${index + 1} . ${name} ${lastname}
+                        ایمیل: ${email}
+                        شغل: ${job || "---"}
+                        شماره تماس: ${phone || "---"}
+                        جنسیت: ${gender || "---"}`;
+        list.appendChild(li);
+        modalContent.appendChild(list);
+      });
+    } else {
+      modalContent.innerHTML = `<h3>هیچ کاربر مردی وجود ندارد</h3>`;
+    }
+  }
+  modal.style.display = "block";
 });
 
 // Close modal when clicking outside content area
